@@ -27,18 +27,10 @@ typedef struct  temps {
     double clr;
 } TEMPS;
 
-// Function that reads the data from the file and stores it into a dynamic array of structures
-/*
- void readData() {
- 
- }
- */
-
-
-void indvidualAverage (TEMPS *t, int size) {
+double indvidualAverage (TEMPS *t, int size, double average[]) {
     
     int i;
-    double average, total1 = 0, total2 = 0, total3 = 0, total4 = 0, total5 = 0, total6 = 0;
+    double total_avg, total1 = 0, total2 = 0, total3 = 0, total4 = 0, total5 = 0, total6 = 0;
     
     for(i = 0 ; i < size ; i++) {
         total1 += t[i].sup;
@@ -48,24 +40,56 @@ void indvidualAverage (TEMPS *t, int size) {
         total5 += t[i].ont;
         total6 += t[i].clr;
     }
-    average = total1 / size;
-    printf("The average temp of lake sup is: %5.2lf\n", average);
-    average = total2 / size;
-    printf("The average temp of lake mich is: %5.2lf\n", average);
-    average = total3 / size;
-    printf("The average temp of lake huron is: %5.2lf\n", average);
-    average = total4 / size;
-    printf("The average temp of lake erie is: %5.2lf\n", average);
-    average = total5 / size;
-    printf("The average temp of lake ont is: %5.2lf\n", average);
-    average = total6 / size;
-    printf("The average temp of lake clr is: %5.2lf\n", average);
+    
+    average[0] = total1 / size;
+    printf("The average temp of lake sup is: %5.2lf\n", average[0]);
+    average[1] = total2 / size;
+    printf("The average temp of lake mich is: %5.2lf\n", average[1]);
+    average[2] = total3 / size;
+    printf("The average temp of lake huron is: %5.2lf\n", average[2]);
+    average[3] = total4 / size;
+    printf("The average temp of lake erie is: %5.2lf\n", average[3]);
+    average[4] = total5 / size;
+    printf("The average temp of lake ont is: %5.2lf\n", average[4]);
+    average[5] = total6 / size;
+    printf("The average temp of lake clr is: %5.2lf\n", average[5]);
+    total_avg = (total1 + total2 + total3 + total4 + total5 + total6) / 6;
+    
+    return total_avg;
+}
+
+void warmest(double average[])
+{
+    int i = 0,lake = 0;
+    double warmest = average[0];
+    
+    for(i = 1; i < 6; i++)
+    {
+        if(warmest<average[i])
+        {
+            warmest = average[i];
+            lake = i;
+        }
+    }
+    
+    if(lake == 0)
+        printf("\nThe warmest lake is Superior");
+    else if(lake == 1)
+        printf("\nThe warmest lake is Michigan");
+    else if(lake == 2)
+        printf("\nThe warmest lake is Huron");
+    else if(lake == 3)
+        printf("\nThe warmest lake is Erie");
+    else if(lake == 4)
+        printf("\nThe warmest lake is Ontario");
+    else if(lake == 5)
+        printf("\nThe warmest lake is St. Clair");
+        
 }
 
 void free_Mem(FILE *data, TEMPS *t) {
     fclose(data);
     free(t);
 }
-
 
 #endif
