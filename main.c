@@ -36,6 +36,7 @@ int main () {
     }
     
     indvidualAverage(t, (i+1));
+    warmest(average);
     free_Mem(data, t);
     
     return 0;
